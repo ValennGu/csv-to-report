@@ -2,11 +2,16 @@
 import { ref } from 'vue'
 import FileUpload from '@/components/FileUpload.vue'
 import { getHeadersFromCSV } from '@/utils/getHeaders'
+import { getDataFromCsv } from './utils/getData'
 
 const headers = ref<string[]>([])
+const data = ref<{ [key: string]: string }[]>([])
 
-const handleFileChange = (data: string) => {
-  headers.value = getHeadersFromCSV(data)
+const handleFileChange = (file: string) => {
+  headers.value = getHeadersFromCSV(file)
+  data.value = getDataFromCsv(file, headers.value)
+
+  console.log(data.value)
 }
 </script>
 
@@ -15,6 +20,10 @@ const handleFileChange = (data: string) => {
   <h3>Headers</h3>
   <ul>
     <li v-for="header in headers" :key="header">{{ header }}</li>
+  </ul>
+  <h3>Rows</h3>
+  <ul>
+    <li v-for="item in data" :key="item.name">{{ item }}</li>
   </ul>
 </template>
 
