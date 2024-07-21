@@ -3,4 +3,5 @@ export const getHeadersFromCSV = (csv: string) => {
     .split('\n')[0]
     .split(',')
     .map((header) => header.trim())
+    .filter((header) => header !== '')
 }
