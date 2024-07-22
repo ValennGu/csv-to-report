@@ -25,6 +25,7 @@ const handleFileChange = (file: string) => {
   <ul>
     <li v-for="item in data" :key="item.name">{{ item }}</li>
   </ul>
+  <Button label="Cancel" />
 </template>
 
 <style scoped></style>
