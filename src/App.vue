@@ -26,6 +26,14 @@ const handleFileChange = (file: string) => {
     <li v-for="item in data" :key="item.name">{{ item }}</li>
   </ul>
   <Button label="Cancel" />
+
+  <DataTable :value="data" v-if="data.length > 0">
+    <Column field="name" header="Name" />
+    <Column field="amount" header="Amount" />
+    <Column field="date" header="Date" />
+    <Column field="entity" header="Entity" />
+    <Column field="category" header="Category" />
+  </DataTable>
 </template>
 
 <style scoped></style>
