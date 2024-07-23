@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useToast } from 'primevue/usetoast'
+import type { FileUploadSelectEvent } from 'primevue/fileupload'
 
 type Props = {
   maxSize: number
@@ -12,18 +14,14 @@ type File = {
   extension: string
 }
 
-interface HTMLInputEvent extends Event {
-  target: HTMLInputElement & EventTarget
-}
-
+const toast = useToast()
 const props = defineProps<Props>()
 const emit = defineEmits(['data'])
-
 const error = ref<string | undefined>()
 const file = ref<File>({ name: '', size: 0, extension: '' })
 
-const handleFileChange = (event: Event) => {
-  const files = (event as HTMLInputEvent).target.files
+const handleFileChange = (event: FileUploadSelectEvent) => {
+  const files = event.files
   error.value = undefined
 
   if (files && files[0]) {
@@ -40,6 +38,12 @@ const handleFileChange = (event: Event) => {
       }
 
       reader.readAsText(upload)
+      toast.add({
+        severity: 'success',
+        summary: 'All good!',
+        detail: 'File has been loaded and parsed.',
+        life: 3000
+      })
     }
   }
 }
@@ -64,26 +68,13 @@ const isFileExtensionValid = (ext: string) => {
 </script>
 
 <template>
-  <input type="file" name="" id="" @change="handleFileChange($event)" />
-  <div class="info" v-if="!error">
-    ----
-    <span>File name: {{ file.name || '--' }}</span>
-    <span>File size: {{ file.size || '--' }}</span>
-    <span>File extension: {{ file.extension || '--' }}</span>
-  </div>
-
-  <div v-if="error">
-    {{ error }}
-  </div>
+  <FileUpload
+    mode="basic"
+    accept="text/csv"
+    :maxFileSize="1000000"
+    @select="handleFileChange"
+    chooseLabel="Browse"
+  />
 </template>
 
-<style>
-.info {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-span {
-  width: 100%;
-}
-</style>
+<style></style>

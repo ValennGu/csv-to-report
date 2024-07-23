@@ -14,8 +14,17 @@ const createObjectFromHeaders = (row: string, headers: string[]) => {
 
   for (const index in headers) {
     const prop = headers[index]
-    obj[prop] = values[index]
+
+    if (prop === 'Amount') {
+      obj[prop] = getAmount(values[index])
+    } else {
+      obj[prop] = values[index]
+    }
   }
 
   return obj
+}
+
+export const getAmount = (amount: string) => {
+  return `${amount} €`
 }
