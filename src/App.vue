@@ -3,14 +3,27 @@ import { computed, ref } from 'vue'
 import CsvFileUpload from '@/components/CsvFileUpload.vue'
 import { getHeadersFromCSV } from '@/utils/getHeaders'
 import { getDataFromCsv } from '@/utils/getData'
+import { getUniqueCategories } from './utils/getUniqueCategories'
 
 const headers = ref<string[]>([])
 const data = ref<{ [key: string]: string }[]>([])
-const filter = ref<string>('')
+const filterTerm = ref<string>('')
+const filterCategory = ref<string>('')
 
 const filteredData = computed(() => {
-  return [...data.value].filter((elem) => elem['Name'].includes(filter.value))
+  return filterByCategories().filter((elem) => elem['Name'].includes(filterTerm.value))
 })
+const categories = computed(() => {
+  return getUniqueCategories(data.value.map((elem) => elem['Category']))
+})
+
+const filterByCategories = () => {
+  if (filterCategory.value === 'All') {
+    return [...data.value]
+  }
+
+  return [...data.value].filter((elem) => elem['Category'].includes(filterCategory.value))
+}
 
 const handleFileChange = (file: string) => {
   headers.value = getHeadersFromCSV(file)
@@ -22,7 +35,14 @@ const handleFileChange = (file: string) => {
   <CsvFileUpload :max-size="500000" :extension="'csv'" @data="handleFileChange" />
   <Toolbar>
     <template #start>
-      <InputText v-model="filter" placeholder="Search" :disabled="data.length === 0" />
+      <InputText v-model="filterTerm" placeholder="Search" :disabled="data.length === 0" />
+      <Select
+        v-model="filterCategory"
+        :options="categories"
+        :disabled="data.length === 0"
+        placeholder="Select a Category"
+        class="w-full md:w-56"
+      />
     </template>
   </Toolbar>
   <DataTable :value="filteredData" v-if="data.length > 0">

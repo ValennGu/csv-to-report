@@ -13,6 +13,7 @@ import Toast from 'primevue/toast'
 import ToastService from 'primevue/toastservice'
 import Toolbar from 'primevue/toolbar'
 import InputText from 'primevue/inputtext'
+import Select from 'primevue/select'
 
 const app = createApp(App)
 
@@ -28,5 +29,6 @@ app.component('FileUpload', FileUpload)
 app.component('Toast', Toast)
 app.component('Toolbar', Toolbar)
 app.component('InputText', InputText)
+app.component('Select', Select)
 app.use(ToastService)
 app.mount('#app')
