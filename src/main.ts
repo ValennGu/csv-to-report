@@ -11,6 +11,8 @@ import Column from 'primevue/column'
 import FileUpload from 'primevue/fileupload'
 import Toast from 'primevue/toast'
 import ToastService from 'primevue/toastservice'
+import Toolbar from 'primevue/toolbar'
+import InputText from 'primevue/inputtext'
 
 const app = createApp(App)
 
@@ -24,5 +26,7 @@ app.component('DataTable', DataTable)
 app.component('Column', Column)
 app.component('FileUpload', FileUpload)
 app.component('Toast', Toast)
+app.component('Toolbar', Toolbar)
+app.component('InputText', InputText)
 app.use(ToastService)
 app.mount('#app')

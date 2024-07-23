@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import CsvFileUpload from '@/components/CsvFileUpload.vue'
 import { getHeadersFromCSV } from '@/utils/getHeaders'
 import { getDataFromCsv } from '@/utils/getData'
 
 const headers = ref<string[]>([])
 const data = ref<{ [key: string]: string }[]>([])
+const filter = ref<string>('')
+
+const filteredData = computed(() => {
+  const a = [...data.value].filter((elem) => elem['Name'].includes(filter.value))
+  console.log(a)
+  return a
+})
 
 const handleFileChange = (file: string) => {
   headers.value = getHeadersFromCSV(file)
@@ -15,7 +22,12 @@ const handleFileChange = (file: string) => {
 
 <template>
   <CsvFileUpload :max-size="500000" :extension="'csv'" @data="handleFileChange" />
-  <DataTable :value="data" v-if="data.length > 0">
+  <Toolbar>
+    <template #start>
+      <InputText v-model="filter" placeholder="Search" :disabled="data.length === 0" />
+    </template>
+  </Toolbar>
+  <DataTable :value="filteredData" v-if="data.length > 0">
     <Column v-for="header of headers" :key="header" :field="header" :header="header" />
   </DataTable>
   <Toast position="top-right" />
