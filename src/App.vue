@@ -9,9 +9,7 @@ const data = ref<{ [key: string]: string }[]>([])
 const filter = ref<string>('')
 
 const filteredData = computed(() => {
-  const a = [...data.value].filter((elem) => elem['Name'].includes(filter.value))
-  console.log(a)
-  return a
+  return [...data.value].filter((elem) => elem['Name'].includes(filter.value))
 })
 
 const handleFileChange = (file: string) => {
