@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 import CsvFileUpload from '@/components/CsvFileUpload.vue'
 import { getHeadersFromCSV } from '@/utils/getHeaders'
 import { getDataFromCsv } from '@/utils/getData'
 import { getUniqueCategories } from './utils/getUniqueCategories'
+import CategoriesChart from './components/CategoriesChart.vue'
 
 const headers = ref<string[]>([])
 const data = ref<{ [key: string]: string }[]>([])
+const control = [400, 120, 150, 100, 29.96, 145, 220, 100, 80, 120, 558.32]
+
 const filterTerm = ref<string>('')
 const filterCategory = ref<string>('')
 
@@ -29,64 +32,22 @@ const handleFileChange = (file: string) => {
   headers.value = getHeadersFromCSV(file)
   data.value = getDataFromCsv(file, headers.value)
 }
-
-const chartData = ref()
-const chartOptions = ref()
-
-onMounted(() => {
-  chartData.value = setChartData()
-  chartOptions.value = setChartOptions()
-})
-
-const setChartData = () => {
-  const documentStyle = getComputedStyle(document.body)
-
-  return {
-    labels: ['A', 'B', 'C'],
-    datasets: [
-      {
-        data: [540, 325, 702],
-        backgroundColor: [
-          documentStyle.getPropertyValue('--p-cyan-500'),
-          documentStyle.getPropertyValue('--p-orange-500'),
-          documentStyle.getPropertyValue('--p-gray-500')
-        ],
-        hoverBackgroundColor: [
-          documentStyle.getPropertyValue('--p-cyan-400'),
-          documentStyle.getPropertyValue('--p-orange-400'),
-          documentStyle.getPropertyValue('--p-gray-400')
-        ]
-      }
-    ]
-  }
-}
-
-const setChartOptions = () => {
-  const documentStyle = getComputedStyle(document.documentElement)
-  const textColor = documentStyle.getPropertyValue('--p-text-color')
-
-  return {
-    plugins: {
-      legend: {
-        labels: {
-          usePointStyle: true,
-          color: textColor
-        }
-      }
-    }
-  }
-}
 </script>
 
 <template>
   <CsvFileUpload :max-size="500000" :extension="'csv'" @data="handleFileChange" />
-  <Chart type="pie" :data="chartData" :options="chartOptions" />
+  <CategoriesChart
+    v-if="data.length > 0"
+    :categories="categories"
+    :expenses="data"
+    :control="control"
+  />
   <Toolbar>
     <template #start>
       <InputText v-model="filterTerm" placeholder="Search" :disabled="data.length === 0" />
       <Select
         v-model="filterCategory"
-        :options="categories"
+        :options="['All', ...categories]"
         :disabled="data.length === 0"
         placeholder="Select a Category"
         class="w-full md:w-56"
