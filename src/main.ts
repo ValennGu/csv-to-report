@@ -14,6 +14,7 @@ import ToastService from 'primevue/toastservice'
 import Toolbar from 'primevue/toolbar'
 import InputText from 'primevue/inputtext'
 import Select from 'primevue/select'
+import Chart from 'primevue/chart'
 
 const app = createApp(App)
 
@@ -30,5 +31,6 @@ app.component('Toast', Toast)
 app.component('Toolbar', Toolbar)
 app.component('InputText', InputText)
 app.component('Select', Select)
+app.component('Chart', Chart)
 app.use(ToastService)
 app.mount('#app')
