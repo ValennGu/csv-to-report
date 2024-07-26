@@ -54,7 +54,12 @@ const handleFileChange = (file: string) => {
   />
   <Toolbar v-if="displayContent">
     <template #start>
-      <InputText v-model="filterTerm" placeholder="Search" />
+      <IconField>
+        <InputIcon style="top: 43%">
+          <i class="pi pi-search" />
+        </InputIcon>
+        <InputText v-model="filterTerm" placeholder="Search" style="min-width: 400px" />
+      </IconField>
     </template>
     <template #end>
       <SelectButton
@@ -76,7 +81,7 @@ const handleFileChange = (file: string) => {
       />
     </template>
   </Toolbar>
-  <DataTable :value="filteredData" v-if="displayContent">
+  <DataTable v-if="displayContent" :value="filteredData" stripedRows>
     <Column v-for="header of headers" :key="header" :field="header" :header="header" />
   </DataTable>
   <Toast position="top-right" />
