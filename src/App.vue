@@ -100,7 +100,7 @@ const handleFileChange = (file: string) => {
   >
     <Column v-for="header of headers" :key="header" :field="header" :header="header" />
     <template #empty>
-      <Image src="../public/data-not-found.jpg" alt="Empty table" width="250" />
+      <Image src="/src/assets/data-not-found.jpg" alt="Empty table" width="250" />
     </template>
   </DataTable>
   <Toast position="top-right" />
