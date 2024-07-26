@@ -2,9 +2,11 @@ import './assets/main.css'
 import 'primeicons/primeicons.css'
 
 import { createApp } from 'vue'
+
 import App from './App.vue'
-import PrimeVue from 'primevue/config'
 import { Noir } from './assets/noir'
+
+import PrimeVue from 'primevue/config'
 import Button from 'primevue/button'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
@@ -15,6 +17,7 @@ import Toolbar from 'primevue/toolbar'
 import InputText from 'primevue/inputtext'
 import Select from 'primevue/select'
 import Chart from 'primevue/chart'
+import SelectButton from 'primevue/selectbutton'
 
 const app = createApp(App)
 
@@ -23,6 +26,8 @@ app.use(PrimeVue, {
     preset: Noir
   }
 })
+app.use(ToastService)
+
 app.component('Button', Button)
 app.component('DataTable', DataTable)
 app.component('Column', Column)
@@ -32,5 +37,6 @@ app.component('Toolbar', Toolbar)
 app.component('InputText', InputText)
 app.component('Select', Select)
 app.component('Chart', Chart)
-app.use(ToastService)
+app.component('SelectButton', SelectButton)
+
 app.mount('#app')
