@@ -81,8 +81,27 @@ const handleFileChange = (file: string) => {
       />
     </template>
   </Toolbar>
-  <DataTable v-if="displayContent" :value="filteredData" stripedRows>
+  <DataTable
+    v-if="displayContent"
+    :value="filteredData"
+    stripedRows
+    :pt="{
+      tbody: {
+        style: {
+          'user-select': 'none'
+        }
+      },
+      emptymessagecell: {
+        style: () => ({
+          'user-select': 'none'
+        })
+      }
+    }"
+  >
     <Column v-for="header of headers" :key="header" :field="header" :header="header" />
+    <template #empty>
+      <Image src="../public/data-not-found.jpg" alt="Empty table" width="250" />
+    </template>
   </DataTable>
   <Toast position="top-right" />
 </template>

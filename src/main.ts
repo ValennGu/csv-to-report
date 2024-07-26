@@ -20,6 +20,7 @@ import Chart from 'primevue/chart'
 import SelectButton from 'primevue/selectbutton'
 import IconField from 'primevue/iconfield'
 import InputIcon from 'primevue/inputicon'
+import Image from 'primevue/image'
 
 const app = createApp(App)
 
@@ -42,5 +43,6 @@ app.component('Chart', Chart)
 app.component('SelectButton', SelectButton)
 app.component('IconField', IconField)
 app.component('InputIcon', InputIcon)
+app.component('Image', Image)
 
 app.mount('#app')
