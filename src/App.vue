@@ -46,19 +46,19 @@ const handleFileChange = (file: string) => {
     @data="handleFileChange"
     v-if="!displayContent"
   />
-  <CategoriesChart
+  <!-- <CategoriesChart
     v-if="displayContent"
     :categories="categories"
     :expenses="data"
     :control="control"
-  />
+  /> -->
   <Toolbar v-if="displayContent">
     <template #start>
       <IconField>
         <InputIcon style="top: 43%">
           <i class="pi pi-search" />
         </InputIcon>
-        <InputText v-model="filterTerm" placeholder="Search" style="min-width: 400px" />
+        <InputText v-model="filterTerm" placeholder="Search" style="min-width: 300px" />
       </IconField>
     </template>
     <template #end>
@@ -100,7 +100,7 @@ const handleFileChange = (file: string) => {
   >
     <Column v-for="header of headers" :key="header" :field="header" :header="header" />
     <template #empty>
-      <Image src="/src/assets/data-not-found.jpg" alt="Empty table" width="250" />
+      <Image src="data-not-found.jpg" alt="Empty table" width="250" />
     </template>
   </DataTable>
   <Toast position="top-right" />
