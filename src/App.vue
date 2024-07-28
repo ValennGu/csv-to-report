@@ -1,18 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { Data } from '@/models/data'
 
 import CsvFileUpload from '@/components/CsvFileUpload.vue'
-import CategoriesChart from '@/components/CategoriesChart.vue'
-import ExpensesTab from '@/components/ExpensesTab.vue'
-import type { Data } from '@/models/data'
-import { getCategories } from '@/models/categories'
+import TabReport from '@/components/TabReport.vue'
+import TabExpenses from '@/components/TabExpenses.vue'
 import { getHeadersFromCSV } from '@/utils/getHeaders'
 import { getDataFromCsv } from '@/utils/getData'
 
 const headers = ref<string[]>([])
 const data = ref<Data>([])
-const categories = getCategories()
-const control = [558.32, 400, 150, 200, 150, 150, 100, 29.96, 400]
 
 const handleFileChange = (file: string) => {
   headers.value = getHeadersFromCSV(file)
@@ -55,10 +52,10 @@ const tabs = [
     </TabList>
     <TabPanels>
       <TabPanel value="0">
-        <CategoriesChart :categories="categories" :expenses="data" :control="control" />
+        <TabReport :data="data" />
       </TabPanel>
       <TabPanel value="1">
-        <ExpensesTab :headers="headers" :data="data" :categories="categories" />
+        <TabExpenses :headers="headers" :data="data" />
       </TabPanel>
     </TabPanels>
   </Tabs>

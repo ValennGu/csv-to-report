@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { filterByCategories } from '@/utils/filterByCategories'
+import { getCategories } from '@/models/categories'
 
 type Props = {
   headers: string[]
   data: { [key: string]: string }[]
-  categories: string[]
 }
 
 const props = defineProps<Props>()
@@ -34,7 +34,7 @@ const totalAmount = computed(() => {
       </IconField>
     </template>
     <template #end>
-      <SelectButton v-model="filterCategory" :options="props.categories" aria-labelledby="basic" />
+      <SelectButton v-model="filterCategory" :options="getCategories()" aria-labelledby="basic" />
     </template>
   </Toolbar>
   <DataTable

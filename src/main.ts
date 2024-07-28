@@ -27,6 +27,7 @@ import Tab from 'primevue/tab'
 import TabPanels from 'primevue/tabpanels'
 import TabPanel from 'primevue/tabpanel'
 import Chip from 'primevue/chip'
+import Card from 'primevue/card'
 
 const app = createApp(App)
 
@@ -56,5 +57,6 @@ app.component('Tab', Tab)
 app.component('TabPanels', TabPanels)
 app.component('TabPanel', TabPanel)
 app.component('Chip', Chip)
+app.component('Card', Card)
 
 app.mount('#app')
