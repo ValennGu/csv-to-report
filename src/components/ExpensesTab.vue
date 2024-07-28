@@ -17,6 +17,10 @@ const filteredData = computed(() => {
     elem['Name'].includes(filterTerm.value)
   )
 })
+
+const totalAmount = computed(() => {
+  return filteredData.value.reduce((total, curr) => total + parseFloat(curr['Amount']), 0)
+})
 </script>
 
 <template>
@@ -54,5 +58,11 @@ const filteredData = computed(() => {
       <Image src="data-not-found.jpg" alt="Empty table" width="250" />
     </template>
   </DataTable>
+  <div
+    style="display: flex; gap: 10px; justify-content: end; align-items: center; margin-top: 10px"
+  >
+    <b>Total:</b>
+    <Chip :label="totalAmount.toFixed(2).toString().concat(' €')" />
+  </div>
 </template>
 <style scoped></style>
