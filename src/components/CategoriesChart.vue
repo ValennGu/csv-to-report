@@ -9,9 +9,8 @@ type Props = {
 }
 
 const props = defineProps<Props>()
-
 const chartData = computed(() => {
-  return setChartData(props.categories)
+  return setChartData(props.categories.filter((c) => c !== 'All'))
 })
 const chartOptions = ref({
   plugins: {
