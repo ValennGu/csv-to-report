@@ -5,3 +5,7 @@ export const getSpentByCategory = (expenses: { [key: string]: string }[], catego
       .reduce((total, curr) => total + parseFloat(curr['Amount']), 0)
   )
 }
+
+export const getSpent = (expenses: { [key: string]: string }[]) => {
+  return Math.abs(expenses.reduce((total, curr) => total + parseFloat(curr['Amount']), 0))
+}
