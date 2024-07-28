@@ -26,7 +26,7 @@ const filteredData = computed(() => {
         <InputIcon style="top: 43%">
           <i class="pi pi-search" />
         </InputIcon>
-        <InputText v-model="filterTerm" placeholder="Search" style="min-width: 300px" />
+        <InputText v-model="filterTerm" placeholder="Search" style="min-width: 275px" />
       </IconField>
     </template>
     <template #end>
