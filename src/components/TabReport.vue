@@ -24,7 +24,7 @@ const diff = computed(() => income - outcome)
     <Card>
       <template #subtitle>Expenses Distribution</template>
       <template #content>
-        <CategoriesChart :categories="categories" :expenses="props.data" :control="[]" />
+        <CategoriesChart :categories="categories" :expenses="props.data" :control="control" />
       </template>
     </Card>
     <div class="container">

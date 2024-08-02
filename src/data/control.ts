@@ -1,1 +1,12 @@
-export const control = [558.32, 400, 150, 200, 150, 150, 100, 29.96, 400]
+export const control = [
+  558.32, // Mortgage
+  350, // Home
+  151.5, // Investment
+  275, // Groceries
+  130, // Gas
+  160, // Gym
+  100, // Cats
+  29.96, // Services
+  100, // Eating Out
+  200 // Extra
+]
